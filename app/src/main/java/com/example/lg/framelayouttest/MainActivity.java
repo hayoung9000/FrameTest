@@ -2,17 +2,45 @@ package com.example.lg.framelayouttest;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
-    Button but1,but2,but3;
-
+    LinearLayout[] linears = new LinearLayout[3];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        but1=(Button) findViewById(R.id.but1);
-        but2=(Button) findViewById(R.id.but2);
-        but3=(Button) findViewById(R.id.but3);
+        Button[] buts=new Button[3];
+        for(int i=0;i<3;i++){
+            buts[i]=(Button) findViewById(R.id.but1+i);
+            buts[i].setOnClickListener(butHandler);
+            linears[i]=(LinearLayout)findViewById(R.id.line1+i);
+        }
     }
+
+    View.OnClickListener butHandler=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch(v.getId()){
+                case R.id.but1:
+                    linears[0].setVisibility(View.VISIBLE);
+                    linears[1].setVisibility(View.INVISIBLE);
+                    linears[2].setVisibility(View.INVISIBLE);
+                    break;
+                case R.id.but2:
+                    linears[0].setVisibility(View.INVISIBLE);
+                    linears[1].setVisibility(View.VISIBLE);
+                    linears[2].setVisibility(View.INVISIBLE);
+                    break;
+                case R.id.but3:
+                    linears[0].setVisibility(View.INVISIBLE);
+                    linears[1].setVisibility(View.INVISIBLE);
+                    linears[2].setVisibility(View.VISIBLE);
+                    break;
+            }
+
+        }
+    };
 }
